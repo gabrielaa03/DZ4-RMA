@@ -31,4 +31,12 @@
         android:layout_toRightOf="@+id/picture"
         android:textSize="20sp"
         android:hint="opis"/>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPubDate"
+        android:layout_below="@+id/tvDescription"
+        android:textSize="10sp"
+        android:layout_alignParentRight="true"
+        android:hint="datum"/>
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.gabrielaangebrandt.bugsy;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,34 +20,34 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 
     ArrayList<Objekt> news;
+    Context context;
 
-    public NewsAdapter(ArrayList<Objekt> mnews){news = mnews;};
+    public NewsAdapter(Context context, ArrayList<Objekt> news){ this.context = context; this.news = news;};
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.objekt_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.objekt_layout, parent, false);
         ViewHolder newsViewHolder = new ViewHolder(view);
         return newsViewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-            Objekt objekt = this.news.get(position);
-            holder.title.setText(objekt.getTitle());
-            holder.category.setText(objekt.getCategory());
-            holder.description.setText(objekt.getDescription());
-            holder.image.setImageURI(Uri.parse(objekt.getUrl()));
+            Objekt trenutniObjekt = this.news.get(position);
+            holder.title.setText(trenutniObjekt.getTitle());
+            holder.category.setText(trenutniObjekt.getCategory());
+            holder.description.setText(trenutniObjekt.getPubDate());
+            holder.pubDate.setText(trenutniObjekt.getDescription());
+            Picasso.with(context).load(trenutniObjekt.getUrl()).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return this.news.size();
+        return (news== null) ? 0 : news.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, description, category;
+        TextView title, description, category, pubDate;
         ImageView image;
 
         public ViewHolder(View itemView) {
@@ -55,6 +56,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
             this.title = (TextView) itemView.findViewById(R.id.tvTitle);
             this.category = (TextView) itemView.findViewById(R.id.tvCategory);
             this.description = (TextView) itemView.findViewById(R.id.tvDescription);
+            this.pubDate = (TextView) itemView.findViewById(R.id.tvPubDate);
 
             itemView.setOnClickListener(this);
 
@@ -65,5 +67,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
             String message = description.getText().toString();
             Toast.makeText(view.getContext(), message, Toast.LENGTH_LONG);
         }
+
+        }
     }
-}
+
+
