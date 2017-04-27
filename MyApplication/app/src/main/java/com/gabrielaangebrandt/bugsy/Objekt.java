@@ -1,57 +1,53 @@
 package com.gabrielaangebrandt.bugsy;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 /**
  * Created by Gabriela on 25.4.2017..
  */
-
+@Root(name="item", strict = false)
 class Objekt {
-    String title, description, category, url, pubDate;
+    @Element(name = "title") private String mtitle;
+    @Element(name = "description") private String mdescription;
+    @Element(name = "category") private String mcategory;
+    @Element(name = "enclosure") private image menclosure;
+    @Element(name = "pubDate") private String mpubDate;
 
-  /*  public Objekt(String title, String description, String category,String pubDate, String url) {
-        this.title = title;
-        this.description = description;
-        this.category= category;
-        this.url = url;
-        this.pubDate = pubDate;
-    }
-*/
     public String getTitle() {
-        return title;
+        return mtitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mtitle = title;
     }
 
     public String getDescription() {
-        return description;
+        return mdescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mdescription = description;
     }
 
     public String getCategory() {
-        return category;
+        return mcategory;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.mcategory = category;
     }
 
     public String getUrl() {
-        return url;
+        return menclosure.getImgUrl();
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getPubDate() {
-        return pubDate;
+        return mpubDate;
     }
 
     public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
+        this.mpubDate = pubDate;
     }
 }

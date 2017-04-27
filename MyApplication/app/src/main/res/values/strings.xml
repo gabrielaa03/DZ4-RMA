@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Bugsy</string>
+    <string-array name="category">
+        <item>Društvene mreže</item>
+        <item>Mobiteli</item>
+        <item>Televizori</item>item>
+        <item>Znanost</item>
+        <item>Gadgeti</item>
+
+
+
+    </string-array>
 </resources>

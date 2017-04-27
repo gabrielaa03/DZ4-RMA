@@ -5,6 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gabrielaangebrandt.bugsy.MainActivity">
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_above="@+id/swipeRefreshLayout"
+        ></Spinner>
 <android.support.v4.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,10 +26,6 @@
 </android.support.v4.widget.SwipeRefreshLayout>
 
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        android:layout_below="@+id/swipeRefreshLayout"
-        ></Spinner>
+
 
 </RelativeLayout>

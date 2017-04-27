@@ -21,11 +21,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 
     ArrayList<Objekt> news;
     Context context;
+    String selectCategory;
 
-    public NewsAdapter(Context context, ArrayList<Objekt> news){ this.context = context; this.news = news;};
+    public String getSelectCategory() {
+        return selectCategory;
+    }
+
+    public void setSelectCategory(String selectCategory) {
+        this.selectCategory = selectCategory;
+    }
+
+    public NewsAdapter(ArrayList<Objekt> news){this.news = news;};
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context= parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.objekt_layout, parent, false);
         ViewHolder newsViewHolder = new ViewHolder(view);
         return newsViewHolder;
@@ -36,8 +46,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
             Objekt trenutniObjekt = news.get(position);
             holder.title.setText(trenutniObjekt.getTitle());
             holder.category.setText(trenutniObjekt.getCategory());
-            holder.description.setText(trenutniObjekt.getPubDate());
-            holder.pubDate.setText(trenutniObjekt.getDescription());
+            holder.description.setText(trenutniObjekt.getDescription());
+            holder.pubDate.setText(trenutniObjekt.getPubDate());
             Picasso.with(context).load(trenutniObjekt.getUrl()).into(holder.image);
     }
 
@@ -45,6 +55,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
     public int getItemCount() {
         return (news== null) ? 0 : news.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description, category, pubDate;
