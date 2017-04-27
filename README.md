@@ -8,3 +8,5 @@ Literatura:
   
 Implemetiran recyclerView, posebni layout za objekt, ProgressBar, Spinner za kategorije, Picasso za sliku, SwipeRefreshLayout i DividerItemDecoration. Klikom na objekt otvara se link u zadanom browseru. 
 Kombiniriala sam literature pa ima svega. Nije bilo nekih većih problema, samo neke sitnice preuzimanja podataka s neta.
+
+P.S. Screenshotovi se nalaze u mapi MyApplication, slučajno su tamo završili.
