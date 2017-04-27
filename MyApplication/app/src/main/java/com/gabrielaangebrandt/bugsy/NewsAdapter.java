@@ -33,7 +33,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-            Objekt trenutniObjekt = this.news.get(position);
+            Objekt trenutniObjekt = news.get(position);
             holder.title.setText(trenutniObjekt.getTitle());
             holder.category.setText(trenutniObjekt.getCategory());
             holder.description.setText(trenutniObjekt.getPubDate());
@@ -52,11 +52,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
-            this.image = (ImageView) itemView.findViewById(R.id.picture);
-            this.title = (TextView) itemView.findViewById(R.id.tvTitle);
-            this.category = (TextView) itemView.findViewById(R.id.tvCategory);
-            this.description = (TextView) itemView.findViewById(R.id.tvDescription);
-            this.pubDate = (TextView) itemView.findViewById(R.id.tvPubDate);
+            image = (ImageView) itemView.findViewById(R.id.picture);
+            title = (TextView) itemView.findViewById(R.id.tvTitle);
+            category = (TextView) itemView.findViewById(R.id.tvCategory);
+            description = (TextView) itemView.findViewById(R.id.tvDescription);
+            pubDate = (TextView) itemView.findViewById(R.id.tvPubDate);
 
             itemView.setOnClickListener(this);
 

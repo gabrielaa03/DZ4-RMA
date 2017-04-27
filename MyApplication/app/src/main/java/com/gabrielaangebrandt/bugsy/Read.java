@@ -3,7 +3,6 @@ package com.gabrielaangebrandt.bugsy;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import org.w3c.dom.Document;
@@ -26,14 +25,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class Read extends AsyncTask<Void, Void, Void> {
     Context context;
     ProgressDialog progressDialog;
-    RecyclerView.LayoutManager layoutManager;
     ArrayList<Objekt> news;
     RecyclerView recyclerView1;
     String page = "http://www.bug.hr/rss/vijesti";
     URL url;
-    public Read(Context context, RecyclerView recyclerView1){
+    NewsAdapter adapter;
+    public Read(Context context){
         this.context = context;
-        this.recyclerView1 = recyclerView1;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Učitavanje podataka...");
 
@@ -92,12 +90,9 @@ public class Read extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        layoutManager = new LinearLayoutManager(context);
+        progressDialog.dismiss();
 
-        NewsAdapter adapter = new NewsAdapter(context, news);
-        recyclerView1.setLayoutManager(layoutManager);
-        recyclerView1.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
     }
 
     public Document getData(){
@@ -109,12 +104,14 @@ public class Read extends AsyncTask<Void, Void, Void> {
                 DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
                 Document xml= documentBuilder.parse(inputStream);
-                progressDialog.dismiss();
+
+
                 return xml;
 
     } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
+
     }
 }
