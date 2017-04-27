@@ -1,8 +1,6 @@
 package com.gabrielaangebrandt.bugsy;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -32,24 +31,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static final String page = "http://www.bug.hr/";
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayoutManager layoutManager;
-    List<Objekt> all, objects;
-
     Spinner spinner1;
-
+    ProgressBar pbProgress;
+    List<Objekt> news, posebni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         this.setUpUI();
 
     }
 
     private void setUpUI() {
         Context context = getApplicationContext();
-
         this.recyclerView = (RecyclerView) findViewById(R.id.rv);
-
         this.layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
@@ -58,8 +55,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
-
+        this.pbProgress = (ProgressBar) this.findViewById(R.id.pbProgress);
+        this.pbProgress.setVisibility(View.VISIBLE);
         spinner1 = (Spinner) findViewById(R.id.spinner);
+
         ArrayAdapter<CharSequence> adapter_spinner = ArrayAdapter.createFromResource(this,
                 R.array.category, android.R.layout.simple_spinner_item);
         adapter_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,12 +86,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
 
-            @Override public void run() {
+            @Override
+            public void run() {
                 swipeRefreshLayout.setRefreshing(false);
 
             }
         }, 2000);
         newsList();
+        spinner1.setSelection(0);
 
     }
 
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         List<Objekt> news = response.body().getList();
         NewsAdapter adapter = new NewsAdapter((ArrayList<Objekt>) news);
+        this.pbProgress.setVisibility(View.GONE);
         this.recyclerView.setAdapter(adapter);
 
     }
@@ -113,25 +115,26 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String item = this.spinner1.getSelectedItem().toString();
-        this.all = new ArrayList<>();
-        this.objects = new ArrayList<>();
-        for (Objekt objekt : all) {
-            if (objekt.getMcategory()== item) {
-                objects.add(objekt);
-            }
-        } adapter.notifyDataSetChanged();
+
+        adapter.load(item);
+        NewsAdapter adapter = new NewsAdapter((ArrayList<Objekt>) posebni);
+        this.recyclerView.setAdapter(adapter);
+
     }
 
-        @Override
-        public void onNothingSelected (AdapterView < ? > adapterView){
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
-        }
     }
 
+
+
+
+}
 
 
 

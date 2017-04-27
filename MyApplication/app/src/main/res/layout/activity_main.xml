@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gabrielaangebrandt.bugsy.MainActivity">
-
+    <ProgressBar
+        android:id="@+id/pbProgress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pbProgressHeight"
+        android:layout_centerInParent="true"
+        android:max="100"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:visibility="gone"/>
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -14,6 +21,7 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_marginTop="50dp">
+
 <android.support.v4.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

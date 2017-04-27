@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gabriela on 25.4.2017..
@@ -22,6 +24,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     ArrayList<Objekt> news;
     Context context;
+    ArrayList<Objekt> posebni;
 
 
     public NewsAdapter(ArrayList<Objekt> news) {
@@ -78,7 +81,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     }
 
+    public List<Objekt> load(String item) {
+        posebni = new ArrayList<>();
+        for(Objekt objekt : news) {
+            String category = objekt.getMcategory();
+            if (category.equalsIgnoreCase(item)){
+                Log.d("kategorije", objekt.getMcategory());
+                this.posebni.add(objekt);
 
+            }
+            else{
+                return news;
+
+            }
+            notifyDataSetChanged();
+
+
+
+        } return posebni;
+    }
 }
+
 
 
